@@ -1,2 +1,8 @@
-import { Gear } from './types'
+import { Gear, GearGenerator, GearSet, GeneratedGear } from './types'
 
+export {
+    Gear,
+    GearGenerator,
+    GearSet,
+    GeneratedGear
+}
