@@ -1,0 +1,2 @@
+import { Gear } from './types'
+
