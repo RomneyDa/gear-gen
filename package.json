@@ -1,5 +1,5 @@
 {
-  "name": "gear-pattern-generator",
+  "name": "@dromney/gear-pattern-generator",
   "version": "1.0.0",
   "description": "A set of types and pattern generators for working with front-end gears",
   "main": "dist/index.js",
@@ -8,6 +8,15 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "author": "Dallin Romney",
+  "license": "MIT",
+  "prepublish": "tsc",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RomneyDa/gear-pattern-generator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/RomneyDa/gear-pattern-generator/issues"
+  },
+  "homepage": "https://github.com/RomneyDa/gear-pattern-generator#readme"
 }
