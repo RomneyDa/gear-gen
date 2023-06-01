@@ -26,5 +26,8 @@
   "bugs": {
     "url": "https://github.com/RomneyDa/gear-pattern-generator/issues"
   },
-  "homepage": "https://github.com/RomneyDa/gear-pattern-generator#readme"
+  "homepage": "https://github.com/RomneyDa/gear-pattern-generator#readme",
+  "devDependencies": {
+    "prettier": "^2.8.8"
+  }
 }

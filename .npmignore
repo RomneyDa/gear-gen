@@ -1,5 +1,6 @@
+.prettierrc
 src
 CONTRIBUTING.md
 humans.txt
-USERS.md
 tsconfig.json
+USERS.md
