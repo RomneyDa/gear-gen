@@ -2,6 +2,10 @@
 Everything you need to insert dynamically-generated responsive gears into your frontend!
 # Intro
 
+Installation:
+```bash
+npm install dromney/gear-pattern-generator
+```
 
 
 ### This library includes:
