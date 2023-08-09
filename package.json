@@ -1,6 +1,6 @@
 {
   "name": "@dromney/gear-gen",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "A set of types and pattern generators for working with front-end gears",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
