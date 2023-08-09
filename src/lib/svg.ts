@@ -59,7 +59,7 @@ function getchardata(chr: string): CharData {
 }
 type Point = { x: number, y: number }
 type LineCoords = Point[]
-interface TextData {
+export interface TextData {
     something: number
     lines: LineCoords[]
 }

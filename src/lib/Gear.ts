@@ -1,4 +1,4 @@
-import { createSVGCircle, getPrecisionPolarTextDXFLines, getPrecisionPolarTextSVG, makeText } from "./svg"
+import { TextData, createSVGCircle, getPrecisionPolarTextDXFLines, getPrecisionPolarTextSVG, makeText } from "./svg"
 import { deg2rad, downloadContent, fix2, fix6, linearToPolar, polarToLinear, rad2deg } from "./utils"
 import DXFDrawing, { dxfp1, dxfp2 } from "./dxf"
 
