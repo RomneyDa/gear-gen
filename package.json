@@ -1,5 +1,5 @@
 {
-  "name": "@dromney/gears",
+  "name": "@dromney/gear-gen",
   "version": "0.2.0",
   "description": "A set of types and pattern generators for working with front-end gears",
   "main": "dist/index.js",
@@ -29,8 +29,5 @@
   "homepage": "https://github.com/RomneyDa/gear-pattern-generator#readme",
   "devDependencies": {
     "prettier": "^2.8.8"
-  },
-  "dependencies": {
-    "@types/jquery": "^3.5.16"
   }
 }
