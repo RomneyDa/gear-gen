@@ -29,5 +29,8 @@
   "homepage": "https://github.com/RomneyDa/gear-pattern-generator#readme",
   "devDependencies": {
     "prettier": "^2.8.8"
+  },
+  "dependencies": {
+    "@types/jquery": "^3.5.16"
   }
 }

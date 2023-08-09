@@ -2,6 +2,8 @@
 
 # Intro
 
+Credit to https://lcamtuf.coredump.cx/gcnc/ch6/#6.2
+
 Everything you need to insert generated responsive gears into your frontend!
 
 ### This library includes:

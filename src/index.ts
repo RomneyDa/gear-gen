@@ -1,2 +1,2 @@
-import { Gear, GearGenerator, GearSet, GeneratedGear } from './types'
-
+export * from './lib/Gear';
+export * from './lib/GearSet';

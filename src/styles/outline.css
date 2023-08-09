@@ -1,0 +1,55 @@
+.gear-view {
+	background-color: #ffffff
+}
+.gear-cross {
+	display: none
+}
+.gear-hole {
+    /* display: none; */
+	r: 10px;
+	stroke: #000;
+	stroke-width: 1px;
+}
+.gear-profile {
+	fill: white;
+	stroke: #000;
+	stroke-width: 2px;
+}
+.gear-first-tooth-marker {
+    display: none;
+}
+.gear-guides {
+    display: none;
+}
+.gear-guide-pitch {
+}
+.gear-guide-outer {
+
+}
+.gear-guide-base {
+    
+}
+.gear-text-container {
+    /* display: none; */
+}
+.gear-text {
+
+}
+.grid {
+    display: none;
+}
+.grid-line {
+
+}
+.grid-line-major {
+
+}
+.grid-line-minor {
+
+}
+.grid-line-minor-vertical {
+
+}
+.grid-line-minor-horizontal {
+
+}
