@@ -21,7 +21,7 @@
   ],
   "author": "Dallin Romney",
   "license": "MIT",
-  "prepublish": "tsc",
+  "prepublish": "npm run build",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/RomneyDa/gear-pattern-generator.git"
