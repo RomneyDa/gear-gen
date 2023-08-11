@@ -1,5 +1,5 @@
 import { createSVGCircle, getPrecisionPolarTextDXFLines, getPrecisionPolarTextSVG, makeText } from "./svg"
-import { deg2rad, downloadContent, fix2, fix6, linearToPolar, polarToLinear, rad2deg } from "./utils"
+import { LinearCoordinates, deg2rad, downloadContent, fix2, fix6, linearToPolar, polarToLinear, rad2deg } from "./utils"
 import DXFDrawing, { dxfp1, dxfp2 } from "./dxf"
 
 interface GearConstructor {
@@ -301,7 +301,8 @@ export class Gear {
         }
         const firstHalf = [...pts]
         const firstTooth = [...firstHalf, ...firstHalf.map(p => (pt(p.r, mirrorAngle - p.a))).reverse()]
-        const allTeeth = Array.from(Array(this.N).keys()).map(toothN => firstTooth.map(p => (pt(p.r, p.a + this.gearAngleDeg * toothN)))).flat()
+        const allTeethSections = Array.from(Array(this.N).keys()).map(toothN => firstTooth.map(p => (pt(p.r, p.a + this.gearAngleDeg * toothN))))
+        const allTeeth = Array.prototype.concat.apply([], allTeethSections);
         allTeeth.push(firstPoint) // Might only be needed if internal
         return allTeeth
     }
@@ -343,7 +344,7 @@ export class Gear {
         // Main gear profile
         const pts = this.pointsLinear
         svg += `<path class="gear-profile" id="gear-${this.id}" fill="#ddd" stroke="#444" stroke-width="1" stroke-miterlimit="10"
-            d="M${pts.map(pt => fix6(pt.x * this.scale) + ',' + fix6(pt.y * this.scale)).join(' ')}${this.internal ? createSVGCircle(this.size / 2) : ''}z"
+            d="M${pts.map((pt: LinearCoordinates) => fix6(pt.x * this.scale) + ',' + fix6(pt.y * this.scale)).join(' ')}${this.internal ? createSVGCircle(this.size / 2) : ''}z"
         />`;
 
         const defaultStyle = 'stroke="#444" stroke-width="0.5" stroke-miterlimit="10"'
@@ -384,7 +385,7 @@ export class Gear {
 
         // print points
         const dsc = 1
-        const pts = this.pointsLinear.map(pt => [fix6(pt.x * dsc), -fix6(pt.y * dsc)])
+        const pts = this.pointsLinear.map((pt: LinearCoordinates) => [fix6(pt.x * dsc), -fix6(pt.y * dsc)])
 
         DXF.drawPolyLine(pts);
         DXF.setActiveLayer("gear_guides");
