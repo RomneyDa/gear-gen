@@ -7,7 +7,6 @@ export class GearSet {
         this.gears = gears
     }
     get dimensions() {
-        console.log("calc dims")
         const yMax = Math.max(...this.gears.map(g => g.y + g.size / 2))
         let yMin = Math.min(...this.gears.map(g => g.y - g.size / 2))
         const xMax = Math.max(...this.gears.map(g => g.x + g.size / 2))

@@ -1,11 +1,3 @@
-export function fixInput(v: number, setFN: (value: number) => void, def: number, min?: number, max?: number) {
-    if (isNaN(v)) v = def;
-    if (min !== undefined && v < min) v = min;
-    else if (max !== undefined && v > max) v = max;
-    setFN(v);
-    return v;
-}
-
 export function rad2deg(rad: number) {
     return rad * 180 / Math.PI;
 }
@@ -19,7 +11,7 @@ export function fix6(v: number) {
     return Math.round(10000000 * v) / 10000000;
 }
 
-interface LinearCoordinates {
+export interface LinearCoordinates {
     x: number
     y: number
 }
@@ -36,17 +28,17 @@ export function linearToPolar(c: LinearCoordinates): PolarCoordinates {
     a = Math.asin(y / r) * AM;
     if (x < 0) a = 180 - a;
     a = (a + 360) % 360;
-    return { r: r, a: a }
+    return { r, a }
 }
 
-export function polarToLinear(p: { r: number, a: number }) {
+export function polarToLinear(p: PolarCoordinates): LinearCoordinates {
     var r = p.r, a = p.a, x, y;
     a = ((a + 360) % 360) / AM;
 
     x = Math.cos(a) * r;
     y = -Math.sin(a) * r;
 
-    return { x: x, y: y }
+    return { x, y }
 }
 
 export function downloadContent(content: string, filename: string) {
