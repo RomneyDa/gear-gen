@@ -1,4 +1,4 @@
-import { Gear } from "../lib/Gear";
+import { Gear } from "../core/Gear";
 
 const randomInRange = (min: number, max: number) => Math.floor(Math.random() * (max - min + 1) + min)
 

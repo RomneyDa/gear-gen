@@ -1,4 +1,3 @@
-export * from './lib/Gear';
-export * from './lib/GearSet';
-// export * from './generators';
-// export 
+export * from './core/Gear';
+export * from './core/GearSet';
+export * from './generators';

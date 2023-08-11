@@ -1,7 +1,6 @@
-import { Gear } from "../lib/Gear"
+import { Gear } from "../core/Gear"
 
-
-export function ExampleGears() {
+function ExampleGears() {
     const gear1 = new Gear({
         N: 8,
         P: 8,
@@ -58,3 +57,5 @@ export function ExampleGears() {
 
     return [gear1, gear2, gear3, gear4, gear5, gear6, gear7, gear8, gear9, gear10]
 }
+
+export default ExampleGears
