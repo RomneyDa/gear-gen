@@ -13,6 +13,7 @@
     "clean": "rm -rf ./dist",
     "copy-files": "mkdir ./dist/styles && cp ./src/styles/** ./dist/styles"
   },
+  "prepublish": "npm run build",
   "keywords": [
     "gear",
     "gearpattern",
@@ -21,7 +22,6 @@
   ],
   "author": "Dallin Romney",
   "license": "MIT",
-  "prepublish": "npm run build",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/RomneyDa/gear-pattern-generator.git"
@@ -29,8 +29,5 @@
   "bugs": {
     "url": "https://github.com/RomneyDa/gear-pattern-generator/issues"
   },
-  "homepage": "https://github.com/RomneyDa/gear-pattern-generator#readme",
-  "devDependencies": {
-    "prettier": "^2.8.8"
-  }
+  "homepage": "https://github.com/RomneyDa/gear-pattern-generator#readme"
 }
