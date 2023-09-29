@@ -6,10 +6,10 @@ A dependency-free typescript npm package that provides a set of powerful classes
 
 ## Intro
 - 
-- [Styles](###styles): Provide a CSS template 
+- [Styles](#styles): Provide a CSS template 
 
 
-Gear: a toothed wheel that can  works with others to alter the relation between the speed of a driving mechanism (such as the engine of a vehicle) and the speed of the driven parts (the wheels).
+
 - 
 - 
 GearSet: a collection 
@@ -18,7 +18,7 @@ This package contains various useful gear-related classes. representing of vario
 
 
 ### Gear
-
+a toothed wheel that can  works with others to alter the relation between the speed of a driving mechanism (such as the engine of a vehicle) and the speed of the driven parts (the wheels).
 
 ### GearSet
 
