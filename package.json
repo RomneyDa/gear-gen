@@ -11,7 +11,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npm run clean && tsc && npm run copy-files",
     "clean": "rm -rf ./dist",
-    "copy-files": "mkdir ./dist/styles && cp ./src/styles/** ./dist/styles"
+    "copy-files": "mkdir ./dist/styles && cp ./src/styles/** ./dist/styles && cp ./src/styles/.css.template ./dist/styles"
   },
   "prepublish": "npm run build",
   "keywords": [

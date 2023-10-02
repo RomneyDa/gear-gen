@@ -1,13 +1,13 @@
 # @dromney/gear-gen
 A dependency-free typescript npm package that provides a set of powerful classes that can be used to insert dynamically-generated, animateable spur gears and gear sets into your frontend.
 
-[Example](https://incomparable-biscotti-92aa2f.netlify.app/)
+[Live example](https://incomparable-biscotti-92aa2f.netlify.app/)
 
 ## Installation
 ### `npm install @dromney/gear-gen`
 
 ## Intro
-### Simple example
+Simple example:
 ```typescript
 const gear = new Gear({
     N: 12, // number of teeth
@@ -22,8 +22,8 @@ console.log("Or this dxf:", gear.dxf)
 This package can be used fully by understanding the following:
 - [Gear](#gear): a class that represents a single spur gear and all its associated methods, visual representation, etc. Can optionally be associated with another gear in a parent-child relationship
 - [GearSet](#gearset): a wrapper around an array of `Gear`s that provides additional functionality for the group
-- [Generators](#generators): a paradigm for generating `GearSet`s or lists of `Gear`s
-- [Styles](#styles): powerful CSS support for gear styling, with pre-defined classes and a provided CSS template 
+- [Generators](#generators): a paradigm for dynamically generating `GearSet`s or lists of `Gear`s
+- [Styles](#styles): powerful CSS support for gear styling, with pre-defined classes and a CSS template provided
 
 ### Gear
 `Gear`s can be constructed with an object that follows the `GearConstructor` interface. Note that almost all the parameters are optional and have reasonable defaults.
@@ -62,24 +62,21 @@ const gearDefaults = {
 If the gear is internal, the default thickness ratio is 0.5
 
 ### GearSet
-A GearSet is a class that contains an array of gears and offers shared methods for working with them. It is created by passing an array of gears.
-
-(attribute) gears: the array of gears.
-
-(property) dimentions: the pixel dimensions of the entire gear set, considering connections and positioning and all.
-
-(method) downloadAllSVGs: downloads an svg file that contains svg images for all the gears in the set, in position. Can be passed `padding` in pixels to surround the full set (defaults to 0) and `angle` of rotation (defaults to 0).
+A GearSet is a class that contains an array of gears and offers shared methods for working with them. It is created by passing an array of gears. Methods and attributes:
+- `gearSet.gears` attribute - the array of gears passed upon creation
+- `gearSet.dimensions`: property that returns a `{ h, w }` height/width object with the pixel dimensions of the entire gear set, considering connections, positioning etc.
+- `gearSet.downloadAllSVGs()`: method that downloads an svg file that contains svg images for all the gears in the set, in position. Can be passed `padding` in pixels to surround the full set (defaults to 0) and `angle` of rotation (defaults to 0).
 
 Example:
 ```typescript
 import { ExampleGears } from '@dromney/gear-gen'
 const exampleGearSet = new GearSet(ExampleGears)
 console.log(exampleGearSet.dimensions)
-exampleGearSet.downloadAllSVGs(0, 10)
+exampleGearSet.downloadAllSVGs(0, 10) // no padding, 10 deg rotation offset
 ```
 
 ### Generators
-A generator is a function that may take parameters and outputs a (potentially randomized) list of gears or GearSet. Currently, there is no specific class or mechanism for this, but some examples are provided in src/generators, inluding `RandomGearsDiagonalLeft`, `RandomSpiralGears`, and `RandomBackAndForth`. Randomized gear generation is much simplified because gear positioning is automitically calculated given a connection angle. 
+A gear generator is a function that may take parameters and outputs a (potentially randomized) list of gears or GearSet. Currently, there is no specific class or mechanism for this, but some examples are provided in src/generators, inluding `RandomGearsDiagonalLeft`, `RandomSpiralGears`, and `RandomBackAndForth`. Randomized gear generation is much simplified because gear positioning is automitically calculated given a connection angle. 
 
 The following example is a simple gear generator that outputs a list of gears. All the gears have the same pitch (random 7-12) and pressure angle (random 22-32). Each gear has a random number of teeth between 8 and 20. The total number of gears is random, between 10 and 30. A parent gear is generated, and then new gears up to the total number, each gear having the previous one as its parent.
 
@@ -122,6 +119,38 @@ export function RandomGearsDiagonalExample() {
 Future support could be added to streamline this process and standardize GearSet output, etc.
 
 ### Styles
+Pre-defined classes, such as `.gear-cross`, are built into the generated SVGs with defaults and can used in css to modify gear styles.
+
+Some example full style sets are provided and can be directly imported into your code:
+```typescript
+import '@dromney/styles/bluey.css' // OR
+import '@dromney/styles/dark.css' // OR
+import '@dromney/styles/outline.css'
+```
+
+Or, a `.css.template` is provided in `@dromney/styles` with all the relevant class names and can be copied and modified for custome styles.
+```css
+.gear-view {
+	background-color: #2b2b2b;
+}
+.gear-hole {
+	r: 10px;
+	stroke: #999;
+	stroke-width: 1px;
+}
+.gear-profile {
+	fill: #7b7b7b;
+	stroke: #999;
+	stroke-width: 2px;
+}
+.gear-first-tooth-marker {
+	fill: #333;
+	opacity: 0.3;
+}
+.gear-guides {
+    display: none;
+}
+```
 
 ## Future Improvements
 There is a lot of room for improvement in `GearSet`s and generator examples. A new `GearSetGenerator` class or similar could be powerful.
