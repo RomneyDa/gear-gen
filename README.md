@@ -1,11 +1,15 @@
 # @dromney/gear-gen
 A dependency-free typescript npm package that provides a set of powerful classes that can be used to insert dynamically-generated, animateable spur gears and gear sets into your frontend.
 
+[Example](https://incomparable-biscotti-92aa2f.netlify.app/)
+
 ## Installation
 ### `npm install @dromney/gear-gen`
 
 ## Intro
-- 
+- Gear class
+- GearSet class
+- Generators
 - [Styles](#styles): Provide a CSS template 
 
 
