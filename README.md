@@ -28,7 +28,47 @@ a toothed wheel that can  works with others to alter the relation between the sp
 
 
 ### Generators
+A generator is a function that may take parameters and outputs a (potentially randomized) list of gears or GearSet. Currently, there is no specific class or mechanism for this, but some examples are provided in src/generators, inluding `RandomGearsDiagonalLeft`, `RandomSpiralGears`, and `RandomBackAndForth`. Randomized gear generation is much simplified because gear positioning is automitically calculated given a connection angle. 
 
+The following example is a simple gear generator that outputs a list of gears. All the gears have the same pitch (random 7-12) and pressure angle (random 22-32). Each gear has a random number of teeth between 8 and 20. The total number of gears is random, between 10 and 30. A parent gear is generated, and then new gears up to the total number, each gear having the previous one as its parent.
+
+```typescript
+import { Gear } from "@dromney/gear-gen";
+
+const randomInRange = (min: number, max: number) => Math.floor(Math.random() * (max - min + 1) + min)
+
+export function RandomGearsDiagonalExample() {
+    const pitch = randomInRange(7, 12)
+    const numberOfGears = randomInRange(10, 30)
+    const pressureAngle = randomInRange(22, 32)
+
+    const minNumberOfTeeth = 8
+    const maxNumberOfTeeth = 20
+
+    const minJointAngle = -90
+    const maxJointAngle = 0
+
+    const gears: Gear[] = []
+    const parentGear = new Gear({
+        N: randomInRange(minNumberOfTeeth, maxNumberOfTeeth),
+        P: pitch,
+        PADeg: pressureAngle
+    })
+    gears.push(parentGear)
+    for (let i = 1; i <= numberOfGears; i++) {
+        const gear = new Gear({
+            N: randomInRange(minNumberOfTeeth, maxNumberOfTeeth),
+            parent: gears[i - 1],
+            jointAngleDeg: randomInRange(minJointAngle, maxJointAngle)
+        })
+        gears.push(gear)
+    }
+
+    return gears
+}
+```
+
+Future support could be added to streamline this process and standardize GearSet output, etc.
 
 ### Styles
 
