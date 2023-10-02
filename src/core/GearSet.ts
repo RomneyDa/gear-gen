@@ -15,7 +15,7 @@ export class GearSet {
         if (yMin < 0) yMin = 0
         return { h: yMax - yMin, w: xMax - xMin }
     }
-    downloadAllSVGs(padding: number = 0) {
+    downloadAllSVGs(padding: number = 0, angle: number = 0) {
         const dims = this.dimensions
         const w = dims.w + padding * 2
         const h = dims.h + padding * 2
@@ -25,7 +25,7 @@ export class GearSet {
         sortedGears.forEach(gear => {
             const x = gear.svgOffsetX + padding
             const y = gear.svgOffsetY + padding
-            const rot = fix6(gear.getRotSafe(0) + gear.baseAngle)
+            const rot = fix6(gear.getRotSafe(angle) + gear.baseAngle)
             svg += `<g transform="translate(${x} ${y}) rotate(${rot} ${gear.size / 2} ${gear.size / 2})">${gear.svg}</g>`
         })
         svg += '</svg>'
