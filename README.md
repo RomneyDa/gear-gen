@@ -7,25 +7,76 @@ A dependency-free typescript npm package that provides a set of powerful classes
 ### `npm install @dromney/gear-gen`
 
 ## Intro
-- Gear class
-- GearSet class
-- Generators
-- [Styles](#styles): Provide a CSS template 
+### Simple example
+```typescript
+const gear = new Gear({
+    N: 12, // number of teeth
+    P: 8, // diametral pitch
+    PADeg: 25 // pressure angle
+})
+console.log(`The gear is represented with a diameter of ${gear.D} pseudo-units, scaled by ${gear.scale} pixels per unit`)
+console.log("The gear can be displayed with this SVG:", gear.svg)
+console.log("Or this dxf:", gear.dxf)
+```
 
-
-
-- 
-- 
-GearSet: a collection 
-
-This package contains various useful gear-related classes. representing of various types of gearsa single `Gear` or `Gearset`, along with useful hooks.
-
+This package can be used fully by understanding the following:
+- [Gear](#gear): a class that represents a single spur gear and all its associated methods, visual representation, etc. Can optionally be associated with another gear in a parent-child relationship
+- [GearSet](#gearset): a wrapper around an array of `Gear`s that provides additional functionality for the group
+- [Generators](#generators): a paradigm for generating `GearSet`s or lists of `Gear`s
+- [Styles](#styles): powerful CSS support for gear styling, with pre-defined classes and a provided CSS template 
 
 ### Gear
-a toothed wheel that can  works with others to alter the relation between the speed of a driving mechanism (such as the engine of a vehicle) and the speed of the driven parts (the wheels).
+`Gear`s can be constructed with an object that follows the `GearConstructor` interface. Note that almost all the parameters are optional and have reasonable defaults.
+```typescript
+interface GearConstructor {
+    id?: string // Optional string identifier. Defaults to a randomly generated 5-capital-letter sequence
+    N?: number // Number of teeth
+    D?: number // Pitch diameter, default 2
+    P?: number // Pitch, default 12
+    PADeg?: number // Pressure angle - DEGREES
+
+    parent?: Gear, // Parent gear
+    jointAngleDeg?: number // Angle in degrees of a line drawn from the center of the parent gear to the center of this gear
+
+    internal?: boolean // Internal gear?
+    internalThickness?: number // Thickness of the outer ring of the internal gear relative to the gear diameter
+    axleJoint?: boolean // Is the gear attached to its parent with a fixed axle through the center or not?
+    layer?: number // display order to force displaying gears with a certain priority - translates to CSS z-index
+    scale?: number // scal
+}
+const gearDefaults = {
+    D: 2,
+    N: 12,
+    PADeg: 27,
+    scale: 100,
+    jointAngleDeg: -60,
+    axleJoint: false,
+    internal: false,
+    layer: 1,
+    holeSize: 0.25,
+    crossSize: 8,
+    internalThicknessRatio: 0.5 // fraction of diameter
+}
+```
+
+If the gear is internal, the default thickness ratio is 0.5
 
 ### GearSet
+A GearSet is a class that contains an array of gears and offers shared methods for working with them. It is created by passing an array of gears.
 
+(attribute) gears: the array of gears.
+
+(property) dimentions: the pixel dimensions of the entire gear set, considering connections and positioning and all.
+
+(method) downloadAllSVGs: downloads an svg file that contains svg images for all the gears in the set, in position. Can be passed `padding` in pixels to surround the full set (defaults to 0) and `angle` of rotation (defaults to 0).
+
+Example:
+```typescript
+import { ExampleGears } from '@dromney/gear-gen'
+const exampleGearSet = new GearSet(ExampleGears)
+console.log(exampleGearSet.dimensions)
+exampleGearSet.downloadAllSVGs(0, 10)
+```
 
 ### Generators
 A generator is a function that may take parameters and outputs a (potentially randomized) list of gears or GearSet. Currently, there is no specific class or mechanism for this, but some examples are provided in src/generators, inluding `RandomGearsDiagonalLeft`, `RandomSpiralGears`, and `RandomBackAndForth`. Randomized gear generation is much simplified because gear positioning is automitically calculated given a connection angle. 
