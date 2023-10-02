@@ -9,14 +9,22 @@ A dependency-free typescript npm package that provides a set of powerful classes
 ## Intro
 Simple example:
 ```typescript
+import { Gear } from '@dromney/gear-gen'
 const gear = new Gear({
-    N: 12, // number of teeth
+    N: 20, // number of teeth
     P: 8, // diametral pitch
-    PADeg: 25 // pressure angle
 })
 console.log(`The gear is represented with a diameter of ${gear.D} pseudo-units, scaled by ${gear.scale} pixels per unit`)
 console.log("The gear can be displayed with this SVG:", gear.svg)
 console.log("Or this dxf:", gear.dxf)
+
+const childGear = new Gear({
+    parent: gear1,
+    N: 12
+}) // Inherits pitch diameter from parent
+
+const gearSet = new GearSet([gear, childGear])
+gearSet.downloadAllSVGs() // In the browser, downloads an SVG of the two gears connected
 ```
 
 This package can be used fully by understanding the following:
@@ -119,7 +127,7 @@ export function RandomGearsDiagonalExample() {
 Future support could be added to streamline this process and standardize GearSet output, etc.
 
 ### Styles
-Pre-defined classes, such as `.gear-cross`, are built into the generated SVGs with defaults and can used in css to modify gear styles.
+Pre-defined classes, such as `.gear-cross`, are built into the generated SVGs with defaults and can used in CSS to modify gear styles.
 
 Some example full style sets are provided and can be directly imported into your code:
 ```typescript
@@ -128,7 +136,7 @@ import '@dromney/styles/dark.css' // OR
 import '@dromney/styles/outline.css'
 ```
 
-Or, a `.css.template` is provided in `@dromney/styles` with all the relevant class names and can be copied and modified for custome styles.
+Or, a `.css.template` is provided in `@dromney/styles` with all the relevant class names and can be copied and modified for custom styles.
 ```css
 .gear-view {
 	background-color: #2b2b2b;
