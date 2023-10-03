@@ -7,6 +7,7 @@ A dependency-free typescript npm package that provides a set of powerful classes
 ### `npm install @dromney/gear-gen`
 
 ## Intro
+
 **Simple example**
 ```typescript
 import { Gear } from '@dromney/gear-gen'
@@ -28,15 +29,18 @@ gearSet.downloadAllSVGs() // In a browser environment, downloads an SVG of the t
 ```
 
 This package can be used fully by understanding the following:
-- [Gear](#gear): a class that represents a single spur gear and all its associated methods, visual representation, etc. Can optionally be associated with another gear in a parent-child relationship
-- [GearSet](#gearset): a wrapper around an array of `Gear`s that provides additional functionality for the group
+- [Gear](#gear): a class representation of a single gear
+- [GearSet](#gearset): a class wrapper around an array of `Gear`s that provides additional functionality for groups of gears
 - [Generators](#generators): a paradigm for dynamically generating `GearSet`s or lists of `Gear`s
 - [Styles](#styles): powerful CSS support for gear styling, with pre-defined classes and a CSS template provided
 
 ### Gear
 
+An instance of a `Gear` represents a single spur gear and all its associated methods, visual representation, etc. It can optionally be associated with another gear in a parent-child relationship. For a simple example, see above. Details below.
+
 **Constructor**
-`Gear`s can be constructed with an object that follows the `GearConstructor` interface. Note that almost all the parameters are optional and have reasonable defaults.
+
+A `Gear` can be constructed with an object that follows the `GearConstructor` interface. Note that almost all the parameters are optional and have reasonable defaults.
 ```typescript
 interface GearConstructor {
     id?: string // Optional string identifier. Defaults to a randomly generated 5-capital-letter sequence
@@ -54,7 +58,6 @@ interface GearConstructor {
 }
 ```
 
-
 For simple usage, the constructor allows flexible inputs and has reasonable default params, but checks thoroughly to ensure the gear is valid. These are summarized as follows:
 - Pressure angle is limited between 15 and 35 degrees
 - Scale cannot be set if a parent is provided; it must be inherited
@@ -65,17 +68,100 @@ For simple usage, the constructor allows flexible inputs and has reasonable defa
     - If a parent is NOT provided, two dimensions must be provided, i.e. either N/D, N/P, or P/D
 - If an internal parent is provided, the gear cannot be internal, since two internal gears cannot mesh
 
+**Examples**
+```typescript
+import { Gear } from '@dromney/gear-gen'
+
+// The root gear has 8 teeth, a diametrical pitch of 8, and a pressure angle of 25 deg
+const gear1 = new Gear({
+    N: 8,
+    P: 8,
+    PADeg: 25
+})
+
+// The next gear is a child of the root gear and will inherit its diametrical pitch but will be larger, with 19 teeth
+const gear2 = new Gear({
+    N: 19,
+    parent: gear1
+})
+
+// Gear #3 will be a smaller child of Gear #2, with 11 teeth. Its center will be positioned 10 degrees above the horizontal from its parent Gear #2
+const gear3 = new Gear({
+    N: 11,
+    parent: gear2,
+    jointAngleDeg: 10
+})
+
+// Gear #4 will be a child of Gear #3, positioned up 60 degrees from #3. 8 teeth.
+const gear4 = new Gear({
+    N: 8,
+    parent: gear3,
+    jointAngleDeg: 60
+})
+
+// Going backwards, Gear #5 is another child of Gear #2! It will be positioned up and to the right of #2.
+const gear5 = new Gear({
+    N: 9,
+    parent: gear2,
+    jointAngleDeg: 70
+})
+
+// Gear #6 is also a child of #2. Gear #2 now has 3 children. #6 will have 11 teeth and be positioned down and to the right of #2.
+const gear6 = new Gear({
+    N: 11,
+    parent: gear2,
+    jointAngleDeg: -60
+})
+
+// Gear #7 is another child of #3, positioned down and to the right. Gear #3 now has 2 children. 14 teeth.
+const gear7 = new Gear({
+    N: 14,
+    parent: gear3,
+    jointAngleDeg: -40
+})
+
+// Gear #2 now has 4 children - that is, it's driving 4 gears! Gear 8 has more teeth, but since its an axle joint, it can have a new diametrical pitch, and will end up being smaller.
+const gear8 = new Gear({
+    N: 14,
+    P: 20,
+    parent: gear2,
+    axleJoint: true
+})
+
+// Gear #9 is a child of the new little axle joint gear #8, down and to the left.
+const gear9 = new Gear({
+    N: 25,
+    parent: gear8,
+    jointAngleDeg: -150
+})
+
+// Finally, a new internal gear driven by #7, positioned at 180 degrees. To help the gear set look nice, a layer of zero has been added to place this gear visually behind others
+const gear10 = new Gear({
+    N: 20,
+    parent: gear7,
+    jointAngleDeg: 180,
+    internal: true,
+    layer: 0
+})
+
+const gears = [gear1, gear2, gear3, gear4, gear5, gear6, gear7, gear8, gear9, gear10]
+```
+
+![Example gears, displayed using @dromney/react-gear-gen](https://github.com/RomneyDa/gear-gen/assets/6581799/ad3bd8b8-7b57-4adb-84dc-652bf49df7e1 "Example gears, displayed using @dromney/react-gear-gen")
+
+
 **Visualiation**
 
 
 **Other methods and attributes**
-- crossSize: size of the svg rendered center cross. Default 8
-- holeSize: size of the svg rendered center hole. Default 0.25
+- `gear.crossSize`: size of the svg rendered center cross. Default 8
+- `gear.holeSize`: size of the svg rendered center hole. Default 0.25
 
 ### GearSet
-A GearSet is a class that contains an array of gears and offers shared methods for working with them. It is created by passing an array of gears
+A GearSet is a class that contains an array of gears and offers shared methods for working with them. It is created by passing an array of gears.
 
 **Example**
+
 ```typescript
 import { ExampleGears } from '@dromney/gear-gen'
 const exampleGearSet = new GearSet(ExampleGears)
@@ -84,6 +170,7 @@ exampleGearSet.downloadAllSVGs(0, 10) // no padding, 10 deg rotation offset
 ```
 
 **Methods and attributes**
+
 - `gearSet.gears` attribute - the array of gears passed upon creation
 - `gearSet.dimensions`: property that returns a `{ h, w }` height/width object with the pixel dimensions of the entire gear set, considering connections, positioning etc.
 - `gearSet.downloadAllSVGs()`: method that downloads an svg file that contains svg images for all the gears in the set, in position. Can be passed `padding` in pixels to surround the full set (defaults to 0) and `angle` of rotation (defaults to 0).
