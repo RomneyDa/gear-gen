@@ -7,7 +7,7 @@ A dependency-free typescript npm package that provides a set of powerful classes
 ### `npm install @dromney/gear-gen`
 
 ## Intro
-*Simple example*
+**Simple example**
 ```typescript
 import { Gear } from '@dromney/gear-gen'
 const gear = new Gear({
@@ -35,7 +35,7 @@ This package can be used fully by understanding the following:
 
 ### Gear
 
-*Constructor*
+**Constructor**
 `Gear`s can be constructed with an object that follows the `GearConstructor` interface. Note that almost all the parameters are optional and have reasonable defaults.
 ```typescript
 interface GearConstructor {
@@ -65,17 +65,17 @@ For simple usage, the constructor allows flexible inputs and has reasonable defa
     - If a parent is NOT provided, two dimensions must be provided, i.e. either N/D, N/P, or P/D
 - If an internal parent is provided, the gear cannot be internal, since two internal gears cannot mesh
 
-*Visualiation*
+**Visualiation**
 
 
-*Other methods and attributes*
+**Other methods and attributes**
 - crossSize: size of the svg rendered center cross. Default 8
 - holeSize: size of the svg rendered center hole. Default 0.25
 
 ### GearSet
 A GearSet is a class that contains an array of gears and offers shared methods for working with them. It is created by passing an array of gears
 
-*Example*
+**Example**
 ```typescript
 import { ExampleGears } from '@dromney/gear-gen'
 const exampleGearSet = new GearSet(ExampleGears)
@@ -83,7 +83,7 @@ console.log(exampleGearSet.dimensions)
 exampleGearSet.downloadAllSVGs(0, 10) // no padding, 10 deg rotation offset
 ```
 
-*Methods and attributes*
+**Methods and attributes**
 - `gearSet.gears` attribute - the array of gears passed upon creation
 - `gearSet.dimensions`: property that returns a `{ h, w }` height/width object with the pixel dimensions of the entire gear set, considering connections, positioning etc.
 - `gearSet.downloadAllSVGs()`: method that downloads an svg file that contains svg images for all the gears in the set, in position. Can be passed `padding` in pixels to surround the full set (defaults to 0) and `angle` of rotation (defaults to 0).
