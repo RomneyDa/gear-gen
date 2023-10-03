@@ -126,7 +126,6 @@ export class Gear {
         this.updateStatic()
     }
 
-
     // Number of teeth
     _N: number = gearDefaults.N
     get N() { return this._N }

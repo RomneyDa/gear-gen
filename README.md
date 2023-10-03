@@ -38,34 +38,23 @@ This package can be used fully by understanding the following:
 ```typescript
 interface GearConstructor {
     id?: string // Optional string identifier. Defaults to a randomly generated 5-capital-letter sequence
-    N?: number // Number of teeth
+    N?: number // Number of teeth, default 12
     D?: number // Pitch diameter, default 2
-    P?: number // Pitch, default 12
-    PADeg?: number // Pressure angle - DEGREES
-
+    P?: number // Pitch, default not set / calculated by N and D
+    PADeg?: number // Pressure angle - DEGREES, default 27
     parent?: Gear, // Parent gear
-    jointAngleDeg?: number // Angle in degrees of a line drawn from the center of the parent gear to the center of this gear
-
-    internal?: boolean // Internal gear?
-    internalThickness?: number // Thickness of the outer ring of the internal gear relative to the gear diameter
-    axleJoint?: boolean // Is the gear attached to its parent with a fixed axle through the center or not?
-    layer?: number // display order to force displaying gears with a certain priority - translates to CSS z-index
-    scale?: number // scal
-}
-const gearDefaults = {
-    D: 2,
-    N: 12,
-    PADeg: 27,
-    scale: 100,
-    jointAngleDeg: -60,
-    axleJoint: false,
-    internal: false,
-    layer: 1,
-    holeSize: 0.25,
-    crossSize: 8,
-    internalThicknessRatio: 0.5 // fraction of diameter
+    jointAngleDeg?: number // Angle in degrees of a line drawn from the center of the parent gear to the center of this gear, default -60 degrees (down and to the left)
+    internal?: boolean // Internal gear? default false
+    internalThickness?: number // Ratio of thickness of the outer ring of an internal gear to its pitch diameter, default 0.5
+    axleJoint?: boolean // Is the gear attached to its parent with a fixed axle through the center or not? default false
+    layer?: number // display order to force displaying gears with a certain priority - translates to CSS z-index, default 1
+    scale?: number // display scale of pixels per diametrical unit, default 100
 }
 ```
+
+Attributes:
+- crossSize: size of the svg rendered center cross. Default 8
+- holeSize: size of the svg rendered center hole. Default 0.25
 
 
 // For simple usage, the constructor allows flexible inputs and has default params, but checks thoroughly to ensure the gear is valid. These are summarized as follows:
@@ -77,8 +66,6 @@ const gearDefaults = {
     - If a parent is provided, diametrical pitch and pressure angle MUST inherit from the parent and can NOT be set. Otherwise, only N OR D (not both) are required
     - If a parent is NOT provided, two dimensions must be provided, i.e. either N/D, N/P, or P/D
 - If an internal parent is provided, the gear cannot be internal, since two internal gears cannot mesh
-
-If the gear is internal, the default thickness ratio is 0.5
 
 ### GearSet
 A GearSet is a class that contains an array of gears and offers shared methods for working with them. It is created by passing an array of gears. Methods and attributes:
