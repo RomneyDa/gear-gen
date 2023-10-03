@@ -90,30 +90,35 @@ export class Gear {
                 throw new Error("Must provide a parent + N/D or N/P or D/P")
             }
         } else {
-            if (parent && PADeg) throw new Error("Cannot set PA on child gear")
-            else if (parent) this._PA = parent._PA
-            else if (!PADeg) throw new Error("Must provide PA")
-            else this._PA = deg2rad(PADeg)
+            if (parent) {
+                if (PADeg) throw new Error("Cannot set PA on non-axle-joint child gear")
+                this._PA = parent._PA
 
-            if ((parent && N && D) || (parent && P)) throw new Error("Too many params provided - parent + N/D or parent + P")
-            if (parent && N) {
-                this._N = N
-                this._D = N / parent.P
-            } else if (parent && D) {
-                this._D = D
-                this._N = D * parent.P
-            }
-            else if (N && P) {
-                this._N = N
-                this._D = N / P
-            } else if (D && P) {
-                this._D = D
-                this._N = D * P
-            } else if (N && D) {
-                this._N = N
-                this._D = D
+                if (P) throw new Error("Cannot set diametrical pitch P on non-axle-joint child gear")
+                if (N && D) throw new Error("Too many params provided - can only provide number of teeth or diameter, since P is inherited")
+                if (N) {
+                    this._N = N
+                    this._D = N / parent.P
+                } else if (D) {
+                    this._D = D
+                    this._N = D * parent.P
+                }
             } else {
-                throw new Error("Must provide a parent + N or D, or N/P or D/P")
+                if (!PADeg) this._PA = deg2rad(gearDefaults.PADeg)
+                else this._PA = deg2rad(PADeg)
+
+                if (N && P) {
+                    this._N = N
+                    this._D = N / P
+                } else if (D && P) {
+                    this._D = D
+                    this._N = D * P
+                } else if (N && D) {
+                    this._N = N
+                    this._D = D
+                } else {
+                    throw new Error("If no parent is provided, must provide N+D, or N+P or D+P")
+                }
             }
         }
 
