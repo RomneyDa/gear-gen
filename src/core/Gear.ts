@@ -59,6 +59,8 @@ export class Gear {
 
         if (PADeg && (PADeg < 15 || PADeg > 35)) throw new Error("Pressure angle must be between 15 and 35 degrees")
 
+        if (N && D && P) throw new Error("Too many params provided - N, D, P")
+
         this._axleJoint = axleJoint
         if (axleJoint) {
             if (!parent) throw new Error("Cannot set axleJoint on root gear")
@@ -69,7 +71,6 @@ export class Gear {
             // P = N/D
             // D = N/P
             // N = D*P
-            if (N && D && P) throw new Error("Too many params provided - N, D, P")
             if (N && P) {
                 this._N = N
                 this._D = N / P
@@ -94,7 +95,7 @@ export class Gear {
             else if (!PADeg) throw new Error("Must provide PA")
             else this._PA = deg2rad(PADeg)
 
-            if ((parent && N && D) || (parent && N && P) || (parent && D && P) || (N && D && P)) throw new Error("Too many params provided")
+            if ((parent && N && D) || (parent && P)) throw new Error("Too many params provided - parent + N/D or parent + P")
             if (parent && N) {
                 this._N = N
                 this._D = N / parent.P
@@ -112,7 +113,7 @@ export class Gear {
                 this._N = N
                 this._D = D
             } else {
-                throw new Error("Must provide a parent + N/D or N/P or D/P")
+                throw new Error("Must provide a parent + N or D, or N/P or D/P")
             }
         }
 

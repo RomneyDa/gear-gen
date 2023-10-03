@@ -24,7 +24,7 @@ const childGear = new Gear({
 }) // Inherits pitch diameter from parent
 
 const gearSet = new GearSet([gear, childGear])
-gearSet.downloadAllSVGs() // In the browser, downloads an SVG of the two gears connected
+gearSet.downloadAllSVGs() // In a browser environment, downloads an SVG of the two gears connected
 ```
 
 This package can be used fully by understanding the following:
@@ -66,6 +66,17 @@ const gearDefaults = {
     internalThicknessRatio: 0.5 // fraction of diameter
 }
 ```
+
+
+// For simple usage, the constructor allows flexible inputs and has default params, but checks thoroughly to ensure the gear is valid. These are summarized as follows:
+- Pressure angle is limited between 15 and 35 degrees
+- Scale cannot be set if a parent is provided; it must be inherited
+- On any gear, P, N, and D can't all be set as two are used calculate the other
+- If the gear is an axle joint, a parent must be provided, and N or D are required. Diametral pitch and pressure angle are by default inherited from the parent but can be changed since the teeth don't need to mesh
+- If the gear is NOT an axle joint, the teeth must mesh, so:
+    - If a parent is provided, diametrical pitch and pressure angle MUST inherit from the parent and can NOT be set. Otherwise, only N OR D (not both) are required
+    - If a parent is NOT provided, two dimensions must be provided, i.e. either N/D, N/P, or P/D
+- If an internal parent is provided, the gear cannot be internal, since two internal gears cannot mesh
 
 If the gear is internal, the default thickness ratio is 0.5
 
