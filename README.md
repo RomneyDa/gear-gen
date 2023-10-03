@@ -7,7 +7,7 @@ A dependency-free typescript npm package that provides a set of powerful classes
 ### `npm install @dromney/gear-gen`
 
 ## Intro
-Simple example:
+*Simple example*
 ```typescript
 import { Gear } from '@dromney/gear-gen'
 const gear = new Gear({
@@ -21,7 +21,7 @@ console.log("Or this dxf:", gear.dxf)
 const childGear = new Gear({
     parent: gear1,
     N: 12
-}) // Inherits pitch diameter from parent
+}) // Inherits diametrical pitch from parent
 
 const gearSet = new GearSet([gear, childGear])
 gearSet.downloadAllSVGs() // In a browser environment, downloads an SVG of the two gears connected
@@ -34,6 +34,8 @@ This package can be used fully by understanding the following:
 - [Styles](#styles): powerful CSS support for gear styling, with pre-defined classes and a CSS template provided
 
 ### Gear
+
+*Constructor*
 `Gear`s can be constructed with an object that follows the `GearConstructor` interface. Note that almost all the parameters are optional and have reasonable defaults.
 ```typescript
 interface GearConstructor {
@@ -52,12 +54,8 @@ interface GearConstructor {
 }
 ```
 
-Attributes:
-- crossSize: size of the svg rendered center cross. Default 8
-- holeSize: size of the svg rendered center hole. Default 0.25
 
-
-// For simple usage, the constructor allows flexible inputs and has default params, but checks thoroughly to ensure the gear is valid. These are summarized as follows:
+For simple usage, the constructor allows flexible inputs and has reasonable default params, but checks thoroughly to ensure the gear is valid. These are summarized as follows:
 - Pressure angle is limited between 15 and 35 degrees
 - Scale cannot be set if a parent is provided; it must be inherited
 - On any gear, P, N, and D can't all be set as two are used calculate the other
@@ -67,19 +65,28 @@ Attributes:
     - If a parent is NOT provided, two dimensions must be provided, i.e. either N/D, N/P, or P/D
 - If an internal parent is provided, the gear cannot be internal, since two internal gears cannot mesh
 
-### GearSet
-A GearSet is a class that contains an array of gears and offers shared methods for working with them. It is created by passing an array of gears. Methods and attributes:
-- `gearSet.gears` attribute - the array of gears passed upon creation
-- `gearSet.dimensions`: property that returns a `{ h, w }` height/width object with the pixel dimensions of the entire gear set, considering connections, positioning etc.
-- `gearSet.downloadAllSVGs()`: method that downloads an svg file that contains svg images for all the gears in the set, in position. Can be passed `padding` in pixels to surround the full set (defaults to 0) and `angle` of rotation (defaults to 0).
+*Visualiation*
 
-Example:
+
+*Other methods and attributes*
+- crossSize: size of the svg rendered center cross. Default 8
+- holeSize: size of the svg rendered center hole. Default 0.25
+
+### GearSet
+A GearSet is a class that contains an array of gears and offers shared methods for working with them. It is created by passing an array of gears
+
+*Example*
 ```typescript
 import { ExampleGears } from '@dromney/gear-gen'
 const exampleGearSet = new GearSet(ExampleGears)
 console.log(exampleGearSet.dimensions)
 exampleGearSet.downloadAllSVGs(0, 10) // no padding, 10 deg rotation offset
 ```
+
+*Methods and attributes*
+- `gearSet.gears` attribute - the array of gears passed upon creation
+- `gearSet.dimensions`: property that returns a `{ h, w }` height/width object with the pixel dimensions of the entire gear set, considering connections, positioning etc.
+- `gearSet.downloadAllSVGs()`: method that downloads an svg file that contains svg images for all the gears in the set, in position. Can be passed `padding` in pixels to surround the full set (defaults to 0) and `angle` of rotation (defaults to 0).
 
 ### Generators
 A gear generator is a function that may take parameters and outputs a (potentially randomized) list of gears or GearSet. Currently, there is no specific class or mechanism for this, but some examples are provided in src/generators, inluding `RandomGearsDiagonalLeft`, `RandomSpiralGears`, and `RandomBackAndForth`. Randomized gear generation is much simplified because gear positioning is automitically calculated given a connection angle. 
