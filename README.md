@@ -46,7 +46,7 @@ interface GearConstructor {
     id?: string // Optional string identifier. Defaults to a randomly generated 5-capital-letter sequence
     N?: number // Number of teeth, default 12
     D?: number // Pitch diameter, default 2
-    P?: number // Pitch, default not set / calculated by N and D
+    P?: number // Diametrical pitch, default not set / calculated by N and D
     PADeg?: number // Pressure angle - DEGREES, default 27
     parent?: Gear, // Parent gear
     jointAngleDeg?: number // Angle in degrees of a line drawn from the center of the parent gear to the center of this gear, default -60 degrees (down and to the left)
@@ -151,11 +151,51 @@ const gears = [gear1, gear2, gear3, gear4, gear5, gear6, gear7, gear8, gear9, ge
 
 
 **Visualiation**
+- `gear.svg` stores a string of the svg element that can be used to display the gear
+- `gear.dxf` similarly stores a dxf filestring for viewing, etc.
 
+**Other properties and attributes**
+    holeSize: number = gearDefaults.holeSize
+    crossSize: number = gearDefaults.crossSize
+    jointAngleDeg - jointAngle in deg
+    internalThickness
+    dOuter
+    dInner
+    rOuter
+    rInner
+    dBase
+    rBase
+    r -  pitch radius
+    rScaled - pitch radius in pixels
+    size - scaled total footprint size of gear in pixels (will be square so only one dimension is needed)
 
-**Other methods and attributes**
+attributes
+    gear.svg
+    gear.dxf
+    gear.x
+    gear.y
+    gear.svgOffsetX
+    gear.svgOffsetY
+    gear.rot
+    toothModule: number = 2 // TODO - make these parameters
+    toothGap: number = 0.3
+    gear.description
+    gear.isInternalLink
+    gear.offsetX
+    gear.offsetY
+    gear.parentId
+    gear.ratio
+    gear.totalRatio
 - `gear.crossSize`: size of the svg rendered center cross. Default 8
 - `gear.holeSize`: size of the svg rendered center hole. Default 0.25
+
+Other methods and properties are left accessible but omitted here because they are intended for internal use.
+
+**Methods**
+- `gear.downloadSVG()`: in a browser setting, triggers a download of `gear.svg`
+- `gear.downloadDXF()`: in a browser setting, triggers a download of `gear.dxf`
+- `gear.getRot(globalRot: number)` - based on global rotation (rotation of root gear, gets rotation of this gear). This uses a faster but less safe mechanism that assumes render order matches the parent-child order and parents are always rendered first
+- `gear.getRotSafe(globalRot: number)` - based on global rotation (rotation of root gear, gets rotation of this gear). This uses a slower but safer mechanism that always recursively calculates rot all the way up the parent chain
 
 ### GearSet
 A GearSet is a class that contains an array of gears and offers shared methods for working with them. It is created by passing an array of gears.
