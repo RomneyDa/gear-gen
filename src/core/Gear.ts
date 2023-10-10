@@ -184,9 +184,17 @@ export class Gear {
         this.updateStatic()
     }
 
-    // Parent
+    /**
+     * Get this gear's parent
+     * @type {Gear}
+     * @returns {Gear}
+     */
     _parent?: Gear
     get parent() { return this._parent }
+    /**
+     * Set this gear's parent
+     * @param {Gear} parent - the parent gear
+     */
     set parent(parent: Gear | undefined) {
         this._parent = parent
         this.updateStatic()
@@ -494,6 +502,11 @@ export class Gear {
     }
 
     // Downloads
+
+    /**
+     * A descriptive string to be used as a filename for a gear's downloadable content
+     * @type {string}
+     */
     get fileName() {
         return `gear N${this.N} D${fix2(this.D)} P${fix2(this.P)} PA${fix2(this.PA)} @${fix2(this.scale)}`
     }
