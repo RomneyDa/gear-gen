@@ -487,9 +487,6 @@ export class Gear {
     }
 
     // Just for info
-    get parentId() {
-        return this.parent?.id
-    }
     get totalRatio(): number {
         if (!this.parent) return this.ratio
         if (this.axleJoint) return this.parent.totalRatio

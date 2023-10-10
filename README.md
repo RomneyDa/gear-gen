@@ -155,47 +155,46 @@ const gears = [gear1, gear2, gear3, gear4, gear5, gear6, gear7, gear8, gear9, ge
 - `gear.dxf` similarly stores a dxf filestring for viewing, etc.
 
 **Other properties and attributes**
-    holeSize: number = gearDefaults.holeSize
-    crossSize: number = gearDefaults.crossSize
-    jointAngleDeg - jointAngle in deg
-    internalThickness
-    dOuter
-    dInner
-    rOuter
-    rInner
-    dBase
-    rBase
-    r -  pitch radius
-    rScaled - pitch radius in pixels
-    size - scaled total footprint size of gear in pixels (will be square so only one dimension is needed)
-
-attributes
-    gear.svg
-    gear.dxf
-    gear.x
-    gear.y
-    gear.svgOffsetX
-    gear.svgOffsetY
-    gear.rot
-    toothModule: number = 2 // TODO - make these parameters
-    toothGap: number = 0.3
-    gear.description
-    gear.isInternalLink
-    gear.offsetX
-    gear.offsetY
-    gear.parentId
-    gear.ratio
-    gear.totalRatio
+- `gear.D`/`gear.r`: Pitch diameter/radius, default 2
+- `gear.N`: Number of teeth, default 12
+- `gear.P`: Diametrical pitch, default not set / calculated by N and D
+- `gear.id`: Optional string identifier. Defaults to a randomly generated 5-capital-letter sequence
+- `gear.PADeg`: Pressure angle in degrees, default 27
+- `gear.parent`: Parent gear
+- `gear.axleJoint`: Is the gear attached to its parent with a fixed axle through the center or not? default false
+- `gear.internal`: Internal gear? default false
+- `gear.dInner`/`gear.rInner`: diameter/radius of the gear to the start of the teeth (end for internal gear)
+- `gear.dOuter`/`gear.rOuter`: diameter/radius of the gear to the end of the teeth (start for internal gear)
+- `gear.dBase`/`gear.rBase`: a useful mathematical length - pitch diameter/radius * cos(pressure angle)
+- `rScaled`: Pitch radius scaled in pixels
+- `gear.jointAngleDeg`: Angle in degrees of a line drawn from the center of the parent gear to the center of this gear
+- `gear.internalThickness`: Ratio of thickness of the outer ring of an internal gear to its pitch diameter, default 0.5
+- `gear.scale`: display scale of pixels per diametrical unit, default 100
+- `size` - pixel size (square) of full gear svg footprint
+- `gear.x`: global X pixel center position of the gear, considering parent and all
+- `gear.y`: global Y pixel center positioin of the gear, considering parent and all
+- `gear.offsetX`: X pixel distance from parent's center
+- `gear.offsetY`: Y pixel distance from parent's center
+- `gear.svgOffsetX`: global left pixel offset distance for SVG placement
+- `gear.svgOffsetY`: global top pixel offset distance for SVG placement
+- `gear.rot`: global rotation of the gear in deg, considering parent and all
+- `toothModule`: adjusts the width of teeth - be careful with this, changing is not yet supported. Default 2
+- `toothGap`: adjusts the length of the teeth, or more accurately, the clearance past the end of the tooth to another gear's inner radius when engaged. Default 0.3
+- `gear.description`: a brief, useful text description of the gear
+- `gear.isInternalLink`: boolean property that checks if this or the parent is internal
+- `gear.ratio`: the ratio of the gear relative to its parent
+- `gear.totalRatio`: the total ratio of the gear relative to the root gear
 - `gear.crossSize`: size of the svg rendered center cross. Default 8
-- `gear.holeSize`: size of the svg rendered center hole. Default 0.25
-
-Other methods and properties are left accessible but omitted here because they are intended for internal use.
+- `gear.holeSize`: size of the svg rendered center hole. Default 0.25. Overridden by css `radius` styling
+- `gear.layer`: display order to force displaying gears with a certain priority - translates to CSS z-index, default 1
 
 **Methods**
 - `gear.downloadSVG()`: in a browser setting, triggers a download of `gear.svg`
 - `gear.downloadDXF()`: in a browser setting, triggers a download of `gear.dxf`
 - `gear.getRot(globalRot: number)` - based on global rotation (rotation of root gear, gets rotation of this gear). This uses a faster but less safe mechanism that assumes render order matches the parent-child order and parents are always rendered first
 - `gear.getRotSafe(globalRot: number)` - based on global rotation (rotation of root gear, gets rotation of this gear). This uses a slower but safer mechanism that always recursively calculates rot all the way up the parent chain
+
+Other methods and properties are left accessible but omitted here because they are intended for internal use.
 
 ### GearSet
 A GearSet is a class that contains an array of gears and offers shared methods for working with them. It is created by passing an array of gears.
