@@ -31,4 +31,36 @@ export class GearSet {
         svg += '</svg>'
         downloadContent(svg, "gg_gearset.svg");
     }
+
+    checkGears() {
+        // Check that there is only one root gear
+
+        // Check that all other gears have a parent
+
+        // Check that all children are compatible with their parents
+
+
+
+    }
+
+    checkParentCompatibility(gear: Gear) {
+
+    }
+
+    getRootGear() {
+        // Find the gear with no parent
+
+    }
+
+    getGear(id: string) {
+        return this.gears?.find((gear) => gear.id === id)
+    }
+
+    getDirectChildren(id: string) {
+
+    }
+
+    getAllChildren(id: string) {
+
+    }
 }
