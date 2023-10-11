@@ -275,6 +275,14 @@ export class Gear {
     }
 
     // Graphics
+
+    /**
+     * Generates a list of polar coordinates that trace the profile of the gear.
+     * This is where the meat of the graphics generation is.
+     * Used for both svg and dxf
+     * @type {Array<{r: number, a: number}>}
+     * @returns {Array<{r: number, a: number}>}
+     */
     get pointsPolar() {
         let ac = 0
         const pt = (r: number, a: number) => ({ r, a })
