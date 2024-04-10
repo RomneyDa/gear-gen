@@ -4,7 +4,7 @@ A dependency-free typescript npm package that provides a set of powerful classes
 
 ### Examples
 
--   A Pure HTML/javascript example can be found in [(/dist/examples/index.html)](https://github.com/romneyda/gear-gen/dist/examples/index.html)
+-   A Pure HTML/javascript example can be found in [(/dist/examples/index.html)](https://github.com/RomneyDa/gear-gen/tree/main/dist/examples/index.html)
 -   [Live React example](https://incomparable-biscotti-92aa2f.netlify.app/)
 
 ## Installation
