@@ -1,6 +1,6 @@
-import { createSVGCircle, getPrecisionPolarTextDXFLines, getPrecisionPolarTextSVG, makeText } from "./svg"
-import { LinearCoordinates, deg2rad, downloadContent, fix2, fix6, linearToPolar, polarToLinear, rad2deg } from "./utils"
-import DXFDrawing, { dxfp1, dxfp2 } from "./dxf"
+import { createSVGCircle, getPrecisionPolarTextDXFLines, getPrecisionPolarTextSVG, makeText } from "./svg.js"
+import { LinearCoordinates, deg2rad, downloadContent, fix2, fix6, linearToPolar, polarToLinear, rad2deg } from "./utils.js"
+import DXFDrawing, { dxfp1, dxfp2 } from "./dxf.js"
 
 interface GearConstructor {
     id?: string

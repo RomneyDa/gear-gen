@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Gear Gen Pure HTML Example</title>
+        <style>
+            svg {
+                vertical-align: middle; /* 2 */
+            }
+            :root {
+                --rot-pos: 0;
+            }
+            #container {
+                margin: 50px;
+                position: relative;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="container"></div>
+        <script type="module">
+            import { Gear, createSVGgrid, ExampleGears } from "../index.js"
+
+            const scale = 100
+            const grid = createSVGgrid(scale)
+            const gear1 = new Gear({
+                N: 8,
+                P: 8,
+                PADeg: 25,
+            })
+            const gear2 = new Gear({
+                N: 19,
+                parent: gear1,
+            })
+            const gear3 = new Gear({
+                N: 11,
+                parent: gear2,
+                jointAngleDeg: 10,
+            })
+            const gear4 = new Gear({
+                N: 8,
+                parent: gear3,
+                jointAngleDeg: 60,
+            })
+            const gear5 = new Gear({
+                N: 9,
+                parent: gear2,
+                jointAngleDeg: 70,
+            })
+            const gear6 = new Gear({
+                N: 11,
+                parent: gear2,
+                jointAngleDeg: -60,
+            })
+            const gear7 = new Gear({
+                N: 14,
+                parent: gear3,
+                jointAngleDeg: -40,
+            })
+            const gear8 = new Gear({
+                N: 14,
+                P: 20,
+                parent: gear2,
+                axleJoint: true,
+            })
+            const gear9 = new Gear({
+                N: 25,
+                parent: gear8,
+                jointAngleDeg: -150,
+            })
+            const gear10 = new Gear({
+                N: 20,
+                parent: gear7,
+                jointAngleDeg: 180,
+                internal: true,
+                layer: 0,
+            })
+
+            const gears = [
+                gear1,
+                gear2,
+                gear3,
+                gear4,
+                gear5,
+                gear6,
+                gear7,
+                gear8,
+                gear9,
+                gear10,
+            ]
+
+            const container = document.getElementById("container")
+            const animFuns = []
+            gears.forEach((g) => {
+                const gear = document.createElement("div")
+                const cssVarName = `--gear-${g.id}-rot`
+                gear.innerHTML = g.svg
+                gear.style = `z-index:${g.layer};position:absolute;left:${g.svgOffsetX}px;top:${g.svgOffsetY}px;transform-origin:center;transform:rotate(var(${cssVarName}));`
+                container.appendChild(gear)
+                animFuns.push((global) => {
+                    gear.style.setProperty(
+                        cssVarName,
+                        g.getRotSafe(global) + g.baseAngle + "deg"
+                    )
+                })
+            })
+            document.addEventListener("mousemove", (e) => {
+                const mousePos = { x: e.clientX, y: e.clientY }
+                const rot = Math.sqrt(
+                    Math.pow(e.clientX, 2) + Math.pow(e.clientY, 2)
+                )
+                animFuns.forEach((f) => f(rot))
+            })
+        </script>
+    </body>
+</html>

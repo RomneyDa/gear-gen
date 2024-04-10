@@ -1,5 +1,5 @@
-import { Gear } from "./Gear"
-import { downloadContent, fix6 } from "./utils"
+import { Gear } from "./Gear.js"
+import { downloadContent, fix6 } from "./utils.js"
 
 export class GearSet {
     gears: Gear[] = []

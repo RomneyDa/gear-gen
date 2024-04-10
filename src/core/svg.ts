@@ -1,4 +1,4 @@
-import { fix2, fix6, polarToLinear } from "./utils";
+import { fix2, fix6, polarToLinear } from "./utils.js";
 
 export function createSVGCircle(r: number) {
     return "M-" + r + ",0a" + r + "," + r + ",0 0,1 " + (2 * r) + ",0a " + r + "," + r + " 0 0,1 -" + (2 * r) + ",0z";

@@ -1,4 +1,4 @@
-import { Gear } from "../core/Gear"
+import { Gear } from "../core/Gear.js"
 
 export function ExampleGears() {
     const gear1 = new Gear({
