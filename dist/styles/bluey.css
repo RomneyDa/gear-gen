@@ -1,0 +1,64 @@
+.gear-view {
+	background-color: #0071b8
+}
+.gear-cross {
+	stroke: #000;
+	stroke-width: 1px;
+}
+.gear-hole {
+	r: 20px;
+	fill: none;
+	stroke: #000;
+	stroke-width: 1px;
+}
+.gear-profile {
+	fill: transparent;
+	stroke: #000;
+	stroke-width: 2px;
+}
+.gear-profile:hover {
+	fill: #00f;
+	stroke: #000;
+	stroke-width: 1px;
+}
+.gear-first-tooth-marker {
+	fill: #000;
+	stroke: #000;
+	stroke-width: 1px;
+}
+.gear-guides {
+	opacity: 0.2;
+}
+.gear-guide-pitch {
+	stroke: #f00;
+}
+.gear-guide-outer {
+	stroke: #ccc;
+	stroke-dasharray: 2 2;
+}
+.gear-guide-base {
+	stroke: #00f;
+	stroke-dasharray: 2 2;
+}
+
+.grid {
+	opacity: 0.2;
+	stroke: #444;
+	stroke-width: 2px;
+}
+.grid-line {
+	opacity: 1;
+	stroke: #fff;
+}
+.grid-line-major {
+
+}
+.grid-line-minor {
+
+}
+.grid-line-minor-vertical {
+
+}
+.grid-line-minor-horizontal {
+
+}
