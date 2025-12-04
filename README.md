@@ -2,6 +2,8 @@
 
 A dependency-free typescript npm package that provides a set of powerful classes that can be used to insert dynamically-generated, animateable spur gears and gear sets into your frontend.
 
+![Example gears, displayed using @dromney/react-gear-gen](https://github.com/RomneyDa/gear-gen/assets/6581799/ad3bd8b8-7b57-4adb-84dc-652bf49df7e1 "Example gears, displayed using @dromney/react-gear-gen")
+
 ### Examples
 
 -   A Pure HTML/javascript example can be found in [(/dist/examples/index.html)](https://github.com/RomneyDa/gear-gen/tree/main/dist/examples/index.html)
